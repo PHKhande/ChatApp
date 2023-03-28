@@ -29,7 +29,6 @@ function validateForm(e) {
 
     else{
         signupFunc(e);
-        form.reset();
     }
 }
 
@@ -49,13 +48,15 @@ async function signupFunc(e){
             password
         }
         const newUser = await axios.post(`http://localhost:3000/chat/signup/user`, obj);
-        // window.location.href = "../login/login.html";
-        // console.log(newUser.data.newUserData);
+        form.reset();
+        alert("Successfully signed up");
+        window.location.href = "../login/login.html";
+        console.log(newUser.data.newUserData);
         
     }
     catch (err) {
         console.log(err);
-        document.body.innerHTML += `<h4> Something went wrong </h4>`
-        document.body.innerHTML += `<h4> ${err.response.data.message}</h4>`
+        document.body.innerHTML += `<h4 class="text-white"> Something went wrong </h4>`
+        document.body.innerHTML += `<h4 class="text-white"> ${err.response.data.message}</h4>`
     }
 }
