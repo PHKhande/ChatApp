@@ -16,9 +16,11 @@ app.use(cors());
 //Routes
 const userRoutes = require('./routes/userInfo');
 
+//Middlewares
 app.use(bodyParser.json({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Routed Middlewares
 app.use('/chat', userRoutes);
 
 // app.use(errorController.get404);

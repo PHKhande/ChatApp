@@ -31,7 +31,7 @@ async function login(e, obj){
     try{
 
         e.preventDefault();
-        await axios.post('http://localhost:3000/login/user', obj);
+        await axios.post('http://localhost:3000/chat/login/user', obj);
         form.reset();
         alert("You are logged in successfully");
            
@@ -40,7 +40,7 @@ async function login(e, obj){
         console.log(err);
         document.body.innerHTML += `<h4 class="text-white"> Something went wrong </h4>`
         document.body.innerHTML += `<h4 class="text-white"> ${err.response.data.message}</h4>`
-        
+
     }
 
 }
