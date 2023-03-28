@@ -11,7 +11,7 @@ header {
 	text-align: center;
 }
 
-#buttonSubmit {
+.neumorphic-form button{
     background-color: white;
     color: #f20089;
     border-color: orangered;
@@ -21,18 +21,24 @@ header {
     border-radius: 15px;
 }
 
-#buttonSubmit:hover{
+.neumorphic-form button:hover{
     background-color: #f20089;
     border-color: #5ffae0;
     color: white;
+}
+
+@media (max-width: 800px) {
+    .neumorphic-form button {
+        width: 100%;
+        margin: 0;
+    }
 }
 
 .neumorphic-form {
     background-color: linear-gradient(to bottom right, #c22ed0, #5ffae0);
     padding: 30px;
     border-radius: 15px;
-    /* box-shadow: 5px 5px 10px orangered, -5px -5px 10px orangered; */
-    box-shadow: 5px 5px 10px #f20089;
+    box-shadow: 5px 5px 10px #f20089, -5px -5px 10px #5ffae0;
 }
   
 
