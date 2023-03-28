@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(to bottom right, #ffcbf2, #7b2cbf, #10002b, #121212);
+}
+
+header {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#buttonSubmit {
+    background-color: white;
+    color: #f20089;
+    border-color: orangered;
+    width: 30%; /* Set the button width to 30% */
+    display: block; /* Center the button horizontally */
+    margin: 0 auto; /* Center the button horizontally */
+    border-radius: 15px;
+}
+
+#buttonSubmit:hover{
+    background-color: #f20089;
+    border-color: #5ffae0;
+    color: white;
+}
+
+.neumorphic-form {
+    background-color: linear-gradient(to bottom right, #c22ed0, #5ffae0);
+    padding: 30px;
+    border-radius: 15px;
+    /* box-shadow: 5px 5px 10px orangered, -5px -5px 10px orangered; */
+    box-shadow: 5px 5px 10px #f20089;
+}
+  
+
+.neumorphic-form label{
+    color: white;
+    font-weight: bold;
+}
+
+  .neumorphic-form input[type="text"],
+  .neumorphic-form input[type="email"],
+  .neumorphic-form input[type="tel"],
+  .neumorphic-form input[type="password"]{
+    color: #d100d1;
+    border-radius: 15px;
+  }
+
+  
