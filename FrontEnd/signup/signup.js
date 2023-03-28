@@ -1,4 +1,5 @@
 document.getElementById('buttonSubmit').addEventListener('click', validateForm);
+const form = document.querySelector('form');
 
 function validateForm(e) {
     var name = document.getElementById("nameId").value;
