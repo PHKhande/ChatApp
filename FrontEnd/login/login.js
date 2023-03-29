@@ -1,4 +1,5 @@
 document.getElementById("btnLogin").addEventListener("click", validateForm);
+const form = document.querySelector('form');
 
 function validateForm(e) {
 
@@ -31,9 +32,11 @@ async function login(e, obj){
     try{
 
         e.preventDefault();
-        await axios.post('http://localhost:3000/chat/login/user', obj);
+        const response = await axios.post('http://localhost:3000/chat/login/user', obj);
         form.reset();
         alert("You are logged in successfully");
+        window.location.href = "../chatapp/chatapp.html";
+        localStorage.setItem("token", response.data.token);
            
     } catch (err) {
 

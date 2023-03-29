@@ -1,0 +1,38 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    text-align: center;
+    background-color: #a52f90;
+    padding: 10px;
+  }
+  
+  .content {
+    flex: 1;
+  }
+
+  #formDiv{
+    background-color: #a52f90;
+    margin-top: auto;
+    margin-bottom: 0;
+    width: 100%;
+  }
+  
+  .form {
+    margin-top: auto;
+    margin-bottom: 0;
+    width: 800px;
+  }
+
+
+  
+
+
+  

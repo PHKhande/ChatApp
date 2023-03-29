@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
     }
 
     const correctPassword = await bcrypt.compare(loginPassword, user.password);
-    if (!isPasswordMatch) {
+    if (!correctPassword) {
       return res.status(401).json({ message: 'User not authorized' });
     }
 
