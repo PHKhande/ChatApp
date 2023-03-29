@@ -4,6 +4,11 @@ document.getElementById("buttonSend").addEventListener('click', validateMessage)
 const form = document.querySelector('form');
 const token = localStorage.getItem("token");
 
+
+setInterval(function(){
+    location.reload();
+}, 1000);
+
 window.addEventListener("DOMContentLoaded", async () => {
 
     try{
@@ -11,7 +16,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const getAllMessages = await axios.get('http://localhost:3000/chat/messages', { headers: {"Authorization" : token} } );
 
         for (let i = 0; i < getAllMessages.data.allMessages.length; i++){
-            showMessages(getAllMessages.data.allMessages[i]);
+        showMessages(getAllMessages.data.allMessages[i]);
         }
 
     } catch(err) {
@@ -23,6 +28,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
 });
+
+
+    
+
+
+
  
 function validateMessage(e) {
 
