@@ -28,11 +28,14 @@ exports.postSendMessage = async (req, res) => {
 }
 
 exports.getAllMessages = async (req, res) => {
-
+    
     try{
 
-        const allMessages = await Message.findAll();
-        res.status(200).json({allMessages: allMessages})
+        const lastMsgId = +req.query.lastid;
+        
+        const newMessages = await Message.findAll({offset: lastMsgId})
+
+        res.status(200).json({allMessages: newMessages})
 
     } catch(err) {
 

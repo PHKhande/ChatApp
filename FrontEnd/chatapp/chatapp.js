@@ -1,40 +1,43 @@
-
-
 document.getElementById("buttonSend").addEventListener('click', validateMessage);
 const form = document.querySelector('form');
 const token = localStorage.getItem("token");
 
+window.addEventListener("DOMContentLoaded", () => {
 
-setInterval(function(){
-    location.reload();
-}, 1000);
+    async function autoReload() {
 
-window.addEventListener("DOMContentLoaded", async () => {
+        try {
+    
+            const oldMessages = JSON.parse(localStorage.getItem("allMessages"));
+            
+            let lastId = 0
+            if ( oldMessages ){
+                lastId = oldMessages.slice(-1)[0].id ?? 0;
+            }
+            
+            const responseMessage = await axios.get(`http://localhost:3000/chat/messages?lastid=${lastId}`, { headers: { "Authorization": token } });
+            const newMessages = responseMessage.data.allMessages;
+    
+            const allMessages = oldMessages ? [...oldMessages, ...newMessages].slice(-10) : [...newMessages];
 
-    try{
-
-        const getAllMessages = await axios.get('http://localhost:3000/chat/messages', { headers: {"Authorization" : token} } );
-
-        for (let i = 0; i < getAllMessages.data.allMessages.length; i++){
-        showMessages(getAllMessages.data.allMessages[i]);
+            document.getElementById("showMessages").innerHTML = '';
+            allMessages.forEach(showMessages);
+            localStorage.setItem("allMessages", JSON.stringify(allMessages));
+    
+        } catch (err) {
+    
+            console.log(err);
+            document.body.innerHTML += `<h4 class="text-white"> Something went wrong </h4>`
+            document.body.innerHTML += `<h4 class="text-white"> ${err.response.data.message}</h4>`
+    
         }
 
-    } catch(err) {
-
-        console.log(err);
-        document.body.innerHTML += `<h4 class="text-white"> Something went wrong </h4>`
-        document.body.innerHTML += `<h4 class="text-white"> ${err.response.data.message}</h4>`
-
     }
-
+    
+    autoReload();
+    setInterval(autoReload, 5000);
 });
 
-
-    
-
-
-
- 
 function validateMessage(e) {
 
     const userMessage = document.getElementById("messageId").value;
