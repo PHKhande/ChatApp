@@ -27,9 +27,21 @@ header {
     margin-bottom: 0;
     width: 100%;
 }
+
+#showMessages{
+    background-color: #ffffff;
+    /* width: 100%; */
+}
   
 .form {
     width: 800px;
+}
+
+@media (max-width: 800px) {
+    row {
+        width: 100%;
+        margin: 0;
+    }
 }
 
 

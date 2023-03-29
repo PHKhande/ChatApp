@@ -26,3 +26,18 @@ exports.postSendMessage = async (req, res) => {
     }
 
 }
+
+exports.getAllMessages = async (req, res) => {
+
+    try{
+
+        const allMessages = await Message.findAll();
+        res.status(200).json({allMessages: allMessages})
+
+    } catch(err) {
+
+        console.log(err);
+        res.status(500).json({message: "Cannot find messages"});
+
+    }
+}
