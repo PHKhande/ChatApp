@@ -1,35 +1,36 @@
 html, body {
     height: 100%;
     margin: 0;
-  }
+}
   
-  body {
+body {
     display: flex;
+    background: linear-gradient(to right, #6c757d, #000000);
     flex-direction: column;
-  }
+}
   
-  header {
+header {
     text-align: center;
-    background-color: #a52f90;
+    color: #000000;
     padding: 10px;
-  }
+}
   
-  .content {
+.content {
     flex: 1;
-  }
+}  
 
-  #formDiv{
-    background-color: #a52f90;
+#formDiv{
+    border-radius: 15px 15px 0px 0px;
+    border: 2px solid orangered;
+    background-color: #adb5bd;
     margin-top: auto;
     margin-bottom: 0;
     width: 100%;
-  }
+}
   
-  .form {
-    margin-top: auto;
-    margin-bottom: 0;
+.form {
     width: 800px;
-  }
+}
 
 
   
