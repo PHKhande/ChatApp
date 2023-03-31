@@ -137,3 +137,130 @@ exports.joinGroup = async (req, res) => {
 
   }
 }
+
+exports.getAllUsersofGroup = async (req, res) => {
+
+  try{
+
+    const idGroup = req.query.groupid;    
+
+    const users = await ChatAppUser.findAll({
+      include: [{
+        model: ChatGroup,
+        where: { id: idGroup },
+        through: {
+          attributes: ['isAdmin'],
+          where: { isAdmin: { [Op.not]: true } }
+        }
+      }]
+    });
+
+    res.status(200).json({allUsers: users});
+
+  } catch(err) {
+
+    console.log(err);
+    res.status(500).json({message : `Something went wrong !`} );
+
+  }
+}
+
+
+exports.getAdminsofGroup = async (req, res) => {
+
+  try{
+
+    const idGroup = req.query.groupid;
+
+    const users = await ChatAppUser.findAll({
+      include: [{
+        model: ChatGroup,
+        where: { id: idGroup },
+        through: {
+          attributes: ['isAdmin'],
+          where: { isAdmin: { [Op.not]: false } }
+        }
+      }]
+    });
+
+    res.status(200).json({allAdmins: users});
+
+  } catch(err) {
+
+    console.log(err);
+    res.status(500).json({message : `Something went wrong !`} );
+
+  }
+}
+
+
+exports.makeUserAdminofGroup = async (req, res) => {
+
+  try{
+
+    const idGroup = req.query.groupid;
+    const idUser = req.query.userid;
+
+    const userGroup = await UserGroup.findOne({ where: {groupId: idGroup, userId: idUser}});
+    userGroup.isAdmin = true;
+    await userGroup.save();
+    
+    res.status(200).json({message: 'Made Admin'});
+
+  } catch(err) {
+
+    console.log(err);
+    res.status(500).json({message : `Something went wrong !`} );
+
+  }
+
+}
+
+
+exports.makeAdminUserofGroup = async (req, res) => {
+
+  try{
+
+    const idGroup = req.query.groupid;
+    const idUser = req.query.userid;
+
+    const userGroup = await UserGroup.findOne({ where: {groupId: idGroup, userId: idUser}});
+    userGroup.isAdmin = false;
+    await userGroup.save();
+
+    res.status(200).json({message: 'Made Admin'});
+
+  } catch(err) {
+
+    console.log(err);
+    res.status(500).json({message : `Something went wrong !`} );
+
+  }
+
+}
+
+exports.addUsertoGroup = async (req, res) => {
+
+  try{
+
+    const { email, grpId } = req.body;
+
+    const user = await ChatAppUser.findOne( { where: {email: email}});
+
+    await UserGroup.create({
+      userId: user.id,
+      groupId: grpId,
+      isAdmin: false
+    });
+
+    res.status(200).json({addedUser: user})
+
+
+  } catch(err) {
+
+    console.log(err);
+    res.status(500).json({message : `Something went wrong !`} );
+
+  }
+
+}

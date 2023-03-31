@@ -16,7 +16,6 @@ exports.postSendMessage = async (req, res) => {
             userId: idUser,
             groupId: grpId
         });
-        console.log(data)
 
         res.status(201).json({message: data});
 

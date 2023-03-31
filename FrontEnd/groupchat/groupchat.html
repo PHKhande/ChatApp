@@ -10,12 +10,63 @@
   </head>
   <body>
 
-    <div id="homeBody" class="container">
+    <div class="hamburger-menu" id="homeHam">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+
+    <aside class="sidebar">
+      <div class="hamburger-menu" id="sideHam">
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>  
+      <br>
+      <br>
+      <br>
+      <br>
+
+     
+
+
+      <div id="add-user" class="container">
+
+        <form class="form p-2 mx-auto" id="reset">
+          <div class="form-group">
+              <input type="email" class="form-control border border-info" id="emailId" placeholder="Search By Email" >
+          </div>
+          <button id="addUser" class="form-control border border-info col-4 float float-right" type="button">Add</button>
+      </form>
+
+      </div>
+      
+      <br>
+
+      <div class="container p-3 text-white mb-2">
+        <h4>User List</h4>
+        <ul id = "isUser" class="list-group border border-success">
+          
+        </ul>
+      </div>
+
+      <div class="container p-3 text-white mb-2">
+        <h4>Admin List</h4>
+        <ul id = "isAdmin" class="list-group border border-info">
+          
+        </ul>
+      </div>
+
+      
+    </aside>
+
+    <main id="homeBody">
         
         <header class="text-white">
             <div class="row">
                 <div class="container p-2 col-10">
-                    <h1> Group Name </h1>
+                    <h1 id="grpName"> Group Name </h1>
                 </div>
                 <div class="container p-3 col-2">
                     <button id="groupBtn"> Back to Groups </button>
@@ -30,15 +81,9 @@
           </ul>
 
         </div>
-
-        <!-- <div class="container p-3 bg-dark text-white border border-info mb-2">
-          <h4>My Groups</h4>
-          <ul id = "myGroups" class="list-group border border-success">
-          </ul>
-        </div> -->
     
         <div id="formDiv">
-            <form class="form p-2 mx-auto">
+            <form class="form p-2 mx-auto" id="msgReset">
                 <div class="row message-row">
 
                     <div class="col-lg-8">
@@ -57,7 +102,7 @@
                 </div>
             </form>
         </div>
-    </div>
+      </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
     <script src="./groupchat.js"></script>

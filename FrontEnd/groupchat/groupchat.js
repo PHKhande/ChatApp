@@ -1,3 +1,5 @@
+const backendAPIs ="http://localhost:3000/chat"
+
 document.getElementById("buttonSend").addEventListener('click', validateMessage);
 document.getElementById("groupBtn").addEventListener('click', () => window.location.href = "../group/group.html");
 const form = document.querySelector('form');
@@ -8,7 +10,9 @@ const grpName = localStorage.getItem('GroupName');
 const grpId = localStorage.getItem('GroupId')
 
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async() => {
+
+    document.getElementById("grpName").textContent = `${grpName}`;
 
     async function autoReload() {
 
@@ -63,6 +67,16 @@ window.addEventListener("DOMContentLoaded", () => {
     
     autoReload();
     // setInterval(autoReload, 5000);
+
+    const groupUsersArray = await axios.get(`http://localhost:3000/chat/user/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
+    const users = groupUsersArray.data.allUsers
+    users.forEach(showUser);
+
+    const groupAdminsArray = await axios.get(`http://localhost:3000/chat/admin/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
+    const admins = groupAdminsArray.data.allAdmins
+    admins.forEach(showAdmin);
+
+
 });
 
 function validateMessage(e) {
@@ -96,9 +110,9 @@ const sendMessage = async(e, obj) => {
     try{
 
         e.preventDefault();
-        form.reset();
         const response = await axios.post('http://localhost:3000/chat/user/message', obj, { headers: {"Authorization" : token} });
         showMyMessages(response.data.message);
+        document.getElementById('msgReset').reset();
 
 
     } catch (err) {
@@ -130,4 +144,135 @@ async function showOtherMessages(obj) {
     childElem.textContent = obj.message;
     parentElem.appendChild(childElem);
 
+}
+
+
+
+document.getElementById("addUser").addEventListener('click', SearchPeople);
+
+async function SearchPeople(e){
+
+    try{
+
+        e.preventDefault();
+
+        const email = document.getElementById("emailId").value;
+    
+        const obj = {
+            email,
+            grpId
+        }
+    
+        const searchResponse = await axios.post(`${backendAPIs}/addUser`, obj , { headers: { 'Authorization': token } });
+        showUser(searchResponse.data.addedUser);
+        document.getElementById('reset').reset();
+
+    } catch (err) {
+
+        console.log(err);    
+        document.body.innerHTML += `<h4> Something went wrong</h4>`;
+
+    }
+
+}
+
+
+function showUser(obj){
+
+    const parentElem = document.getElementById('isUser');
+    const newChild = document.createElement('li');
+    newChild.textContent = obj.name;
+    newChild.className = "list-group-item text-dark";
+
+    const adminBtn = document.createElement('button');
+    adminBtn.className = 'btn text-info border border-info float float-right';
+    adminBtn.appendChild(document.createTextNode(" + "));
+    newChild.appendChild(adminBtn);
+    parentElem.appendChild(newChild);
+
+    adminBtn.onclick = async(e) => {
+        e.preventDefault();
+
+        try{
+
+            await axios.get(`${backendAPIs}/user/to/admin?groupid=${grpId}&userid=${obj.id}`, { headers: {"Authorization" : token} });
+            showAdmin(obj)
+            parentElem.removeChild(newChild)
+
+        } catch (err) {
+
+            console.log(err);    
+            document.body.innerHTML += `<h4> Something went wrong</h4>`;
+
+        }
+    }
+
+}
+
+function showAdmin(obj){
+
+    const parentElem = document.getElementById('isAdmin');
+    const newChild = document.createElement('li');
+    newChild.textContent = obj.name;
+    newChild.className = "list-group-item text-dark";
+
+    const userBtn = document.createElement('button');
+    userBtn.className = 'btn text-danger border border-danger float float-right';
+    userBtn.appendChild(document.createTextNode(" - "));
+    newChild.appendChild(userBtn);
+    parentElem.appendChild(newChild);
+
+    userBtn.onclick = async(e) => {
+        e.preventDefault();
+
+        try{
+
+            await axios.get(`${backendAPIs}/admin/to/user?groupid=${grpId}&userid=${obj.id}`, { headers: {"Authorization" : token} });
+            showUser(obj)
+            parentElem.removeChild(newChild)
+
+        }
+        catch (err) {
+
+            console.log(err);    
+            document.body.innerHTML += `<h4> Something went wrong</h4>`;
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Sidebar opening and closing
+const homeHamburgerMenu = document.querySelector('.hamburger-menu');
+const sideHamburgerMenu = document.getElementById("sideHam");
+const sidebar = document.querySelector(".sidebar");
+const homeBody = document.getElementById('homeBody')
+
+homeHamburgerMenu.addEventListener("click", openSB);
+sideHamburgerMenu.addEventListener("click", closeSB);
+
+function openSB() {
+    sidebar.classList.add("active-sidebar");
+    homeHamburgerMenu.classList.add('active-homeHam');
+    homeBody.classList.toggle('show-sidebar');
+}
+
+function closeSB() {
+    sidebar.classList.remove("active-sidebar");
+    homeHamburgerMenu.classList.remove('active-homeHam');
 }
