@@ -35,7 +35,7 @@ async function login(e, obj){
         const response = await axios.post('http://localhost:3000/chat/login/user', obj);
         form.reset();
         alert("You are logged in successfully");
-        window.location.href = "../chatapp/chatapp.html";
+        window.location.href = "../home/home.html";
         localStorage.setItem("token", response.data.token);
            
     } catch (err) {

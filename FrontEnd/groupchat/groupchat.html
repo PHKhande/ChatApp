@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="./groupchat.css">
+    <title>Group Chat</title>
+  </head>
+  <body>
+
+    <div id="homeBody" class="container">
+        
+        <header class="text-white">
+            <div class="row">
+                <div class="container p-2 col-10">
+                    <h1> Group Name </h1>
+                </div>
+                <div class="container p-3 col-2">
+                    <button id="groupBtn"> Back to Groups </button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container p-3 bg-dark text-white border border-info mb-2" >
+
+          <ul id = "showMessages" class="list-group border border-success" id="showMessages">
+
+          </ul>
+
+        </div>
+
+        <!-- <div class="container p-3 bg-dark text-white border border-info mb-2">
+          <h4>My Groups</h4>
+          <ul id = "myGroups" class="list-group border border-success">
+          </ul>
+        </div> -->
+    
+        <div id="formDiv">
+            <form class="form p-2 mx-auto">
+                <div class="row message-row">
+
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control border border-info" id="messageId" placeholder="...">
+                    </div>
+
+                    <div class="col-lg-2">
+                        <button id="buttonSend" class="form-control border border-info send-button" type="button">Send</button>
+                    </div>
+
+                    <div class="col-lg-2">
+                      <input type="file" name="file" id="sendFile" class="file-input">
+                      <button id="sendFileBtn" type="button" class="form-control border border-info bg-info" >Send File</button>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="./groupchat.js"></script>
+
+  </body>
+
+
+</html>

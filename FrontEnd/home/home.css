@@ -1,0 +1,120 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+  
+body {
+    display: flex;
+    background: linear-gradient(to right, #36D1DC 0%, #5B86E5  51%, #36D1DC  100%);
+
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+header {
+    text-align: center;
+    color: #000000;
+    padding: 10px;
+}
+
+
+
+/* Sidebar CSS */
+
+#sideHam {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+}
+
+#homeHam {
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    cursor: pointer;
+}
+  
+.hamburger-menu div {
+    width: 25px;
+    height: 3px;
+    background: linear-gradient(to right, #FEAC5E 0%, #C779D0  51%, #FEAC5E  100%);
+    margin: 5px 0;
+}
+
+.sidebar {
+    display: none;
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    background-image: linear-gradient(to right, #780206, #061161);
+    font-size: 0.65em;
+    left: 0;
+    z-index: 1000;
+    transition: left 0.4s ease-out;
+}
+
+.active-sidebar {
+    display: block;
+  }
+
+nav {
+    position: relative;
+    margin: 0 15%;
+    text-align: right;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+nav ul {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+nav ul li {
+    position: relative;
+    margin: 3.2em 0;
+}
+
+nav ul li a {
+        line-height: 5em;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 0.4em;
+        display: block;
+}
+
+.active a {
+    color: white;
+}
+
+          
+.btn-grad {
+    background-image: linear-gradient(to right, #FEAC5E 0%, #C779D0  51%, #FEAC5E  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .btn-grad:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 

@@ -4,7 +4,6 @@ const ChatAppUser = require('../models/userInfo');
 exports.authentication = async(req, res,next) => {
 
     try{
-
         const token = req.headers.authorization;
         console.log(token);
         const userId = jwt.verify(token, 'chatapp');
