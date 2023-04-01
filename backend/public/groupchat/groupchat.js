@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", async() => {
 
             } 
             
-            const responseMessage = await axios.get(`3.145.106.103:3000/chat/messages?lastid=${lastId}&groupid=${grpId}`, { headers: { "Authorization": token } });
+            const responseMessage = await axios.get(`http://3.145.106.103:3000/chat/messages?lastid=${lastId}&groupid=${grpId}`, { headers: { "Authorization": token } });
             const newMessages = responseMessage.data.allMessages;
             
             const allMessages = oldMessages ? [...oldMessages, ...newMessages].slice(-10) : [...newMessages];
