@@ -84,22 +84,42 @@
     
         <div id="formDiv">
             <form class="form p-2 mx-auto" id="msgReset">
-                <div class="row message-row">
 
-                    <div class="col-lg-8">
-                      <input type="text" class="form-control border border-info" id="messageId" placeholder="...">
-                    </div>
+              <div class="row message-row d-flex align-items-center">
 
-                    <div class="col-lg-2">
-                        <button id="buttonSend" class="form-control border border-info send-button" type="button">Send</button>
-                    </div>
-
-                    <div class="col-lg-2">
-                      <input type="file" name="file" id="sendFile" class="file-input">
-                      <button id="sendFileBtn" type="button" class="form-control border border-info bg-info text-white" >Send Files</button>
-                    </div>
-                    
+                <div class="col-lg-9">
+                  <input type="text" class="form-control border border-info" id="messageId" placeholder="...">
                 </div>
+              
+                <div class="col-lg-3">
+                  <button id="buttonSend" class="form-control border border-info send-button" type="button">Send</button>
+                </div>
+              
+              </div>
+
+              <br>
+
+              <!-- <div class="col-lg-12 d-flex align-items-center">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="sendFile" class="col-lg-4 form-control border border-success bg-success text-white">
+                    <button id="uploadBtn" type="button" class="col-lg-4 form-control border border-info bg-info text-white mx-auto">Upload</button>
+                </form>                
+              </div> -->
+
+              <!-- <div class="col-lg-12 d-flex align-items-center">
+                <form id="uploadFile" enctype="multipart/form-data">
+                    <input id="sendFile" type="file" class="col-lg-4 form-control border border-success bg-success text-white"/>
+                    <button id="uploadButton" onclick="uploadFile()" class="col-lg-4 form-control border border-info bg-info text-white mx-auto">Upload</button>
+                </form>                
+              </div> -->
+
+              <form id="uploadFile">
+                <input type="file" name="file" id="sendFile">
+                <button type="button" onclick="uploadFile()">send file</button>
+              </form>
+            
+              
+    
             </form>
         </div>
       </main>

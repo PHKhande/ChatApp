@@ -59,3 +59,64 @@ exports.getAllMessages = async (req, res) => {
 
     }
 }
+
+
+const AWS = require('aws-sdk');
+
+updloadToS3 = (file, filename) => {
+    const BUCKET_NAME = 'expensetrackerfiles';
+    const IAM_USER_KEY = process.env.IAM_USER_KEY;
+    const IAM_USER_SECRET = process.env.IAM_USER_SECRET_KEY;
+
+    let s3Bucket = new AWS.S3({
+        accessKeyId: IAM_USER_KEY,
+        secretAccessKey: IAM_USER_SECRET,
+    })
+    var params = {
+        Bucket: BUCKET_NAME,
+        Key: filename,
+        Body: file,
+        ACL: 'public-read'
+    }
+    return new Promise((resolve, reject) => {
+        s3Bucket.upload(params, (err, s3responce) => {
+            if (err) {
+                console.log(`Something went wrong`, err);
+                reject(err);
+            } else {
+                console.log(`work has done ===>`, s3responce);
+                resolve(s3responce.Location);
+            }
+        })
+    })
+}
+
+
+exports.sendFile = async (req, res, next) => {
+    try{
+        
+        const { groupId } = req.params;
+
+        if(!req.file){
+           return res.status(400).json({ success: false, message: `Please choose file !` });
+        }
+    
+        let type = (req.file.mimetype.split('/'))[1];
+        const file = req.file.buffer;
+        const filename = `GroupChat/${new Date()}.${type}`;
+
+        const fileUrl = await updloadToS3(file, filename);
+    
+        let result = await req.user.createMessage({
+            message: fileUrl,
+            groupId: groupId,
+            userId: req.user.id
+        })
+        const data = { message: result.message, createdAt: result.createdAt };
+    
+        res.status(200).json({ success: true, data });
+    }catch(err){
+        console.log(err);
+        res.status(400).json({ success: false, message: `Something went wrong !` });
+    }
+}

@@ -129,8 +129,20 @@ async function showMyMessages(obj) {
 
     const parentElem = document.getElementById("showMessages");
     const childElem = document.createElement("li");
-    childElem.className = "list-group-item text-dark text-right";
-    childElem.textContent = obj.message;
+    childElem.className = "list-group-item text-dark text-right";    
+    
+    if (obj.message.indexOf('https://') == 0 || obj.message.indexOf('http://') == 0){
+
+        const linkElem = document.createElement("a");
+        linkElem.href = obj.message;
+        linkElem.textContent = "LINK";
+        childElem.appendChild(linkElem);
+    
+    } else{
+ 
+        childElem.textContent = obj.message;
+
+    }
     parentElem.appendChild(childElem);
 
 }
@@ -140,7 +152,19 @@ async function showOtherMessages(obj) {
     const parentElem = document.getElementById("showMessages");
     const childElem = document.createElement("li");
     childElem.className = "list-group-item text-dark text-left";
-    childElem.textContent = obj.message;
+
+    if (obj.message.indexOf('https://') == 0 || obj.message.indexOf('http://') == 0){
+
+        const linkElem = document.createElement("a");
+        linkElem.href = obj.message;
+        linkElem.textContent = "LINK";
+        childElem.appendChild(linkElem);
+
+    } else{
+
+        childElem.textContent = obj.message;
+
+    }
     parentElem.appendChild(childElem);
 
 }
@@ -241,8 +265,27 @@ function showAdmin(obj){
 
 }
 
+async function uploadFile(){
+    try{
+        const upload = document.getElementById('uploadFile');
+        const formData = new FormData();
+        const file = document.getElementById('sendFile').files[0];
+        // formData.append('username', 'Zuber');
+        formData.append('file' , file);
+        // console.log(formData);
+        const responce = await axios.post(`http://3.145.106.103:3000/chat/sendFile/${grpId}` , formData , { headers: { 'Authorization': token, "Content-Type":"multipart/form-data" } });
+        console.log(responce.data);
+        document.getElementById('sendFile').value = null;
+        showMyMessages(responce.data.data);
+    }catch(err){
+        console.log(err);
+        if(err.response.status == 400){
+            return alert(err.response.data.message);
+        }
+    }
+    
+}
 
-// document.getElementById("sendFileBtn").addEventListener('click', sendFile);
 
 
 
