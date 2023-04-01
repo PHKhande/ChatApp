@@ -1,4 +1,4 @@
-const backendAPIs = '3.145.106.103:3000/chat';
+
 
 document.getElementById("btnLogin").addEventListener("click", validateForm);
 const form = document.querySelector('form');
@@ -34,7 +34,7 @@ async function login(e, obj){
     try{
 
         e.preventDefault();
-        const response = await axios.post(`${backendAPIs}/login/user`, obj);
+        const response = await axios.post(`http://3.145.106.103:3000/chat/login/user`, obj);
         form.reset();
         alert("You are logged in successfully");
         window.location.href = "../home/home.html";
