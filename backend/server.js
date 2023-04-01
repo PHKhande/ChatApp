@@ -29,6 +29,10 @@ app.use('/chat', userRoutes);
 app.use('/chat', messageRoutes);
 app.use('/chat', groupRoutes);
 
+app.use( (req, res, next) => {
+  res.sendFile( path.join( __dirname, `public/${req.url}` ) );
+});
+
 // app.use(errorController.get404);
 
 Message.belongsTo(ChatAppUser, { constraints: true, onDelete: 'CASCADE' } );
@@ -40,12 +44,11 @@ ChatGroup.hasMany(Message);
 ChatAppUser.belongsToMany(ChatGroup, { through: UserGroupTable });
 ChatGroup.belongsToMany(ChatAppUser, { through: UserGroupTable });
 
-
 sequelize
   .sync()
   // .sync({force: true})
   .then( result => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log(err);

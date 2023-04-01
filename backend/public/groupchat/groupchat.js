@@ -243,6 +243,9 @@ function showAdmin(obj){
 }
 
 
+document.getElementById("sendFileBtn").addEventListener('click', sendFile);
+
+
 
 
 
