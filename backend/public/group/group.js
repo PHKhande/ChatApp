@@ -1,4 +1,4 @@
-const backendAPIs = 'http://localhost:3000/chat';
+const backendAPIs = '3.145.106.103:3000/chat';
 
 document.getElementById("homeBtn").addEventListener('click', () => window.location.href = "../home/home.html");
 document.getElementById("createGroup").addEventListener('click', validateMessage);

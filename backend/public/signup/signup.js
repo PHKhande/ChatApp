@@ -1,3 +1,5 @@
+const backendAPIs = '3.145.106.103:3000/chat';
+
 document.getElementById('buttonSubmit').addEventListener('click', validateForm);
 const form = document.querySelector('form');
 
@@ -45,7 +47,7 @@ async function signupFunc(e, obj){
     try{
         
         e.preventDefault();
-        await axios.post(`http://localhost:3000/chat/signup/user`, obj);
+        await axios.post(`${backendAPIs}/signup/user`, obj);
         form.reset();
         alert("Successfully signed up");
         window.location.href = "../login/login.html";

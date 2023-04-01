@@ -23,7 +23,7 @@
 //     });
 
 //     const uuid = forgotRequest.id;
-//     const changePassURL = `http://localhost:3000/password/resetpassword/${uuid}`;
+//     const changePassURL = `3.145.106.103:3000/password/resetpassword/${uuid}`;
 
 
 //     // require('dotenv').config(); 

@@ -1,4 +1,4 @@
-const backendAPIs ="http://localhost:3000/chat"
+const backendAPIs ="3.145.106.103:3000/chat"
 
 document.getElementById("buttonSend").addEventListener('click', validateMessage);
 document.getElementById("groupBtn").addEventListener('click', () => window.location.href = "../group/group.html");
@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", async() => {
 
             } 
             
-            const responseMessage = await axios.get(`http://localhost:3000/chat/messages?lastid=${lastId}&groupid=${grpId}`, { headers: { "Authorization": token } });
+            const responseMessage = await axios.get(`3.145.106.103:3000/chat/messages?lastid=${lastId}&groupid=${grpId}`, { headers: { "Authorization": token } });
             const newMessages = responseMessage.data.allMessages;
             
             const allMessages = oldMessages ? [...oldMessages, ...newMessages].slice(-10) : [...newMessages];
@@ -68,11 +68,11 @@ window.addEventListener("DOMContentLoaded", async() => {
     autoReload();
     // setInterval(autoReload, 5000);
 
-    const groupUsersArray = await axios.get(`http://localhost:3000/chat/user/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
+    const groupUsersArray = await axios.get(`3.145.106.103:3000/chat/user/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
     const users = groupUsersArray.data.allUsers
     users.forEach(showUser);
 
-    const groupAdminsArray = await axios.get(`http://localhost:3000/chat/admin/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
+    const groupAdminsArray = await axios.get(`3.145.106.103:3000/chat/admin/group?groupid=${grpId}`, { headers: {"Authorization" : token} });
     const admins = groupAdminsArray.data.allAdmins
     admins.forEach(showAdmin);
 
@@ -110,7 +110,7 @@ const sendMessage = async(e, obj) => {
     try{
 
         e.preventDefault();
-        const response = await axios.post('http://localhost:3000/chat/user/message', obj, { headers: {"Authorization" : token} });
+        const response = await axios.post(`${backendAPIs}/user/message`, obj, { headers: {"Authorization" : token} });
         showMyMessages(response.data.message);
         document.getElementById('msgReset').reset();
 
