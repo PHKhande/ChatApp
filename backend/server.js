@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const cron = require('cron');
+const CronJob = require('cron').CronJob;
 const sequelize = require('./util/database');
 
 //Models
@@ -46,6 +46,15 @@ ChatAppUser.belongsToMany(ChatGroup, { through: UserGroupTable });
 ChatGroup.belongsToMany(ChatAppUser, { through: UserGroupTable });
 
 //cron function
+
+const job = new CronJob(
+  '0 0 * * *',
+  moveMessagesToArchive,
+  null,
+  true,
+  'UTC'
+);
+
 async function moveMessagesToArchive() {
   try {
     const messages = await Message.findAll();
@@ -56,7 +65,7 @@ async function moveMessagesToArchive() {
   }
 }
 
-cron.schedule('0 0 * * *', moveMessagesToArchive);
+
 
 sequelize
   .sync()

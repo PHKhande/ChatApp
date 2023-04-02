@@ -10,7 +10,9 @@ const ArchivedMessage = sequelize.define( 'archivedmessage', {
         primaryKey: true
     },
 
-    message: Sequelize.TEXT('long')
+    message: Sequelize.TEXT('long'),
+    userId: Sequelize.INTEGER,
+    groupId: Sequelize.INTEGER
 
 });
 
