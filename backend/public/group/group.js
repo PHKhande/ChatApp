@@ -6,12 +6,12 @@ const token = localStorage.getItem("token");
 
 window.addEventListener("DOMContentLoaded", async () => {
     try{
-        const myGroups = await axios.get(`http://3.145.106.103:3000/chat/group/mygroups`, { headers: {"Authorization" : token} });   
+        const myGroups = await axios.get(`http://localhost:3000/chat/group/mygroups`, { headers: {"Authorization" : token} });   
         for (let i = 0; i < myGroups.data.myGroupsDB.length; i++){
             showMyGroups(myGroups.data.myGroupsDB[i]);
         }
 
-        const otherGroups = await axios.get(`http://3.145.106.103:3000/chat/group/othergroups`, { headers: {"Authorization" : token} });
+        const otherGroups = await axios.get(`http://localhost:3000/chat/group/othergroups`, { headers: {"Authorization" : token} });
         for (let i = 0; i < otherGroups.data.otherGroupsDB.length; i++){
             showOtherGroups(otherGroups.data.otherGroupsDB[i]);
         }
@@ -43,7 +43,7 @@ else{
 
 async function createGroup(e, obj){
     e.preventDefault();
-    const createdGroup = await axios.post(`http://3.145.106.103:3000/chat/create/group`, obj, { headers: {"Authorization" : token} });
+    const createdGroup = await axios.post(`http://localhost:3000/chat/create/group`, obj, { headers: {"Authorization" : token} });
     showMyGroups(createdGroup.data.myGroupsDB)
     form.reset();
 }
@@ -65,7 +65,7 @@ function showMyGroups(obj) {
 
         try{
 
-            const delResponse = await axios.delete(`http://3.145.106.103:3000/chat/group/delete/${obj.id}`, { headers: {"Authorization" : token} });
+            const delResponse = await axios.delete(`http://localhost:3000/chat/group/delete/${obj.id}`, { headers: {"Authorization" : token} });
             alert(delResponse.data.message);
             parentElem.removeChild(newChild)
 
@@ -106,7 +106,7 @@ function showOtherGroups(obj){
 
         try{
             
-            const joinResponse = await axios.get(`http://3.145.106.103:3000/chat/group/join/${obj.id}`, { headers: {"Authorization" : token} });
+            const joinResponse = await axios.get(`http://localhost:3000/chat/group/join/${obj.id}`, { headers: {"Authorization" : token} });
             alert(joinResponse.data.message);
             showMyGroups(obj);            
             otherParenElem.remove(otherChildElem);
