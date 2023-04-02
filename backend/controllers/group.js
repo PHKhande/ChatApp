@@ -6,14 +6,14 @@ const {Sequelize, Op} = require('sequelize');
 
 exports.createGroup = async (req, res) => {
 
+  const {groupName} = req.body;
+
+  if(!groupName){
+    return res.status(500).json({message: 'All fields are mandatory'});
+  }
+
   try{
     
-    const {groupName} = req.body;
-
-    if(!groupName){
-      return res.status(500).json({message: 'All fields are mandatory'});
-    }
-
     const group = await ChatGroup.create({
         GroupName: groupName,
         CreatedBy: req.user.name
@@ -22,11 +22,12 @@ exports.createGroup = async (req, res) => {
     await group.addUser(req.user.id, { through: { isAdmin : true } });
 
     res.status(201).json({message: 'Successfully created group', myGroupsDB: group});   
-  }
 
-  catch(err){
+  } catch(err){
+
     console.log(err);
     res.status(500).json({message: "Cannot create"});
+    
   }
 
 }

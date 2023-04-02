@@ -266,22 +266,31 @@ function showAdmin(obj){
 }
 
 async function uploadFile(){
+
     try{
-        const upload = document.getElementById('uploadFile');
+
+        // const upload = document.getElementById('uploadFile');
+
         const formData = new FormData();
         const file = document.getElementById('sendFile').files[0];
-        // formData.append('username', 'Zuber');
         formData.append('file' , file);
-        // console.log(formData);
-        const responce = await axios.post(`http://3.145.106.103:3000/chat/sendFile/${grpId}` , formData , { headers: { 'Authorization': token, "Content-Type":"multipart/form-data" } });
-        console.log(responce.data);
+
+        const uploadedFile = await axios.post(`http://3.145.106.103:3000/chat/sendFile/${grpId}` , formData , { headers: { 'Authorization': token, "Content-Type":"multipart/form-data" } });
+        
+        console.log(uploadedFile.data);
         document.getElementById('sendFile').value = null;
-        showMyMessages(responce.data.data);
-    }catch(err){
+
+        console.log(uploadedFile.data);
+
+        showMyMessages(uploadedFile.data);
+
+    } catch(err){
+
         console.log(err);
         if(err.response.status == 400){
             return alert(err.response.data.message);
         }
+
     }
     
 }

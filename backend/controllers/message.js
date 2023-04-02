@@ -64,6 +64,7 @@ exports.getAllMessages = async (req, res) => {
 const AWS = require('aws-sdk');
 
 updloadToS3 = (file, filename) => {
+
     const BUCKET_NAME = 'expensetrackerfiles';
     const IAM_USER_KEY = process.env.IAM_USER_KEY;
     const IAM_USER_SECRET = process.env.IAM_USER_SECRET_KEY;
@@ -72,35 +73,39 @@ updloadToS3 = (file, filename) => {
         accessKeyId: IAM_USER_KEY,
         secretAccessKey: IAM_USER_SECRET,
     })
+
     var params = {
         Bucket: BUCKET_NAME,
         Key: filename,
         Body: file,
         ACL: 'public-read'
     }
+
     return new Promise((resolve, reject) => {
-        s3Bucket.upload(params, (err, s3responce) => {
-            if (err) {
-                console.log(`Something went wrong`, err);
-                reject(err);
+
+        s3Bucket.upload(params, (err, s3response) => {
+            if(err){
+              console.log('Something went wrong', err);
+              reject(err);
             } else {
-                console.log(`work has done ===>`, s3responce);
-                resolve(s3responce.Location);
+              console.log('Success', s3response);
+              resolve(s3response.Location);
             }
+        
         })
     })
 }
 
 
 exports.sendFile = async (req, res, next) => {
+
+    if(!req.file){
+        return res.status(400).json({ success: false, message: `Please select a file` });
+    }
+
     try{
-        
         const { groupId } = req.params;
 
-        if(!req.file){
-           return res.status(400).json({ success: false, message: `Please choose file !` });
-        }
-    
         let type = (req.file.mimetype.split('/'))[1];
         const file = req.file.buffer;
         const filename = `GroupChat/${new Date()}.${type}`;
@@ -112,11 +117,13 @@ exports.sendFile = async (req, res, next) => {
             groupId: groupId,
             userId: req.user.id
         })
-        const data = { message: result.message, createdAt: result.createdAt };
     
-        res.status(200).json({ success: true, data });
+        res.status(200).json({ message: result.message });
+
     }catch(err){
+        
         console.log(err);
         res.status(400).json({ success: false, message: `Something went wrong !` });
+
     }
 }
